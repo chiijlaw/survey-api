@@ -16,7 +16,7 @@ Install dependencies by running:
 npm install
 ```
 
-> If you do not have nodemon installed globally, run:
+> For dev mode, if you do not have nodemon installed globally, run:
 
 ```
 npm install -d nodemon
@@ -26,6 +26,10 @@ npm install -d nodemon
 
 ```
 npm start
+```
+> Run in dev mode with: 
+```
+npm start-dev
 ```
 
 navigate to or send requests to localhost:3000.
