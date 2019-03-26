@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/chiijlaw/survey-api#readme",
   "dependencies": {
-    "commander": "^2.19.0",
     "express": "^4.16.4",
     "yn": "^3.0.0"
   }
