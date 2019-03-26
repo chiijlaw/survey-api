@@ -39,6 +39,7 @@ const home = () => {
         case "3":
           rl.setPrompt("Survey Results>");
           rl.prompt();
+          getResults();
           break;
         default:
           console.log(`I'm sorry, ${line} is not an option.\n`);
@@ -116,6 +117,36 @@ const take = async () => {
   } catch (e) {
     console.log(e);
     take();
+  }
+};
+
+const getResults = async () => {
+  try {
+    let surveyDir = path.join(__dirname, "surveys");
+    let surveys = await fs.promises.readdir(surveyDir);
+    console.log(
+      "Which of these surveys would you like the results from?\n",
+      surveys
+    );
+    let name = await promisifyQuestion(
+      "What survey would you like to analyze? (omit .js)\n"
+    );
+    let target = path.join(surveyDir, `${name}.js`);
+    await fs.promises.access(target, fs.constants.R_OK | fs.constants.W_OK);
+    let survey = JSON.parse(await fs.promises.readFile(target, "utf8"));
+    for (let i = 0; i < survey.questions.length; i += 1) {
+      let ans = survey.answers[i];
+      console.log(
+        `${survey.questions[i]}:\n true/yes: ${ans.true}\n false/no: ${
+          ans.false
+        }\n`
+      );
+    }
+    console.log("Returning to main menu.");
+    home();
+  } catch (e) {
+    console.log(e);
+    home();
   }
 };
 
